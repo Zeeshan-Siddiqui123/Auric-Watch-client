@@ -81,7 +81,7 @@ const Cart = () => {
   }
 
   return (
-    <div className="w-full mt-22 px-4 py-6 bg-[#121212] text-white shadow-lg animate-slide-down ">
+    <div className=" mt-22 px-4 py-6 bg-[#121212] text-white shadow-lg animate-slide-down ">
       <h2 className="text-3xl font-bold mb-4 text-center">🛒 Your Cart</h2>
       {cart.length === 0 ? (
         <p className='text-center'>Your cart is empty</p>
@@ -91,7 +91,7 @@ const Cart = () => {
           {cart.map((item, index) => (
             <div
               key={item.id || `${item.title}-${index}`}
-              className="flex justify-between items-center mb-4 bg-[#1f1f1f] p-4 rounded"
+              className="flex justify-between items-center mb-4 bg-[#1f1f1f] p-4 rounded max-w-5xl mx-auto"
             >
               <div className="flex items-center gap-3">
                 <img
@@ -113,25 +113,15 @@ const Cart = () => {
               </div>
             </div>
           ))}
-          {/* <div className="mt-6 text-right">
-            <h3 className="text-xl font-bold">Total: Rs {total.toFixed(2)}</h3>
-            <div className="flex justify-end gap-4 mt-4">
-              <Link to="/payment">
-                <button className="bg-blue-500 px-4 py-2 rounded">Pay</button>
-              </Link>
-              <button onClick={handleClearCart} className="bg-red-500 px-4 py-2 rounded">Clear Cart</button>
-            </div>
-          </div> */}
-
           <div className="mt-8">
+            <div className="bg-[#1f1f1f] p-6 rounded-lg max-w-5xl mx-auto ">
             <h2 className="text-2xl font-bold mb-4">💳 Summary</h2>
-            <div className="bg-[#1f1f1f] p-6 rounded">
               <div className="flex justify-between mb-2">
                 <span>Subtotal</span>
                 <span>Rs: {total.toFixed(2)}</span>
               </div>
               <div className="flex justify-between mb-2">
-                <span>Delivery</span>
+                <span>Delivery</span>     
                 <span className="text-green-400">Free</span>
               </div>
               <div className="flex justify-between text-lg font-bold">
