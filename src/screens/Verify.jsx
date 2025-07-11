@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API } from '../../API';
 
 const Verify = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +13,7 @@ const Verify = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3000/verify-otp', { email, otp });
+      const res = await axios.post(`${API}/verify-otp`, { email, otp });
       setMessage(res.data.message);
       setError('');
       setTimeout(() => {
