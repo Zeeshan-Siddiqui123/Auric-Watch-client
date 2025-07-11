@@ -1,1 +1,1 @@
-export const API = 'https://auric-watch-server.vercel.app'
+export const API = 'https://auric-watch-server.onrender.com'
