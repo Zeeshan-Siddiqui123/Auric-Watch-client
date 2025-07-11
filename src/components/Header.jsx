@@ -10,7 +10,6 @@ import axios from 'axios';
 import MobileMenu from './MobileMenu';
 import { API } from '../../API';
 
-
 const Header = () => {
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
@@ -41,12 +40,15 @@ const Header = () => {
 
   return (
     <header className="fixed top-0 w-full z-50 bg-[#1c1d22] shadow-md">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 h-[100px]">
-        {/* Logo */}
-        <div className='toggle max-sm:mr-2'><MobileMenu /></div>
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 ">
+        
+        {/* Mobile Menu Icon */}
+        <div className="md:hidden">
+          <MobileMenu />
+        </div>
 
-        {/* Navigation Links */}
-        <nav className="nav-linkk md:flex gap-6 items-center">
+        {/* Navigation Links - Hidden on small screens */}
+        <nav className="hidden md:flex gap-6 items-center">
           {routes.map(({ path, label }) => (
             <NavLink
               key={path}
@@ -62,49 +64,52 @@ const Header = () => {
           ))}
         </nav>
 
-        <Link to="/">
-          <img src="/images/logo.png" alt="Logo" className="w-[90px]" style={{
-            animation: 'badgeBounce 2s ease-in-out '
-          }} />
+        {/* Logo */}
+        <Link to="/" className="md:mx-8">
+          <img
+            src="/images/logo.png"
+            alt="Logo"
+            className="w-[90px]"
+            style={{ animation: 'badgeBounce 2s ease-in-out' }}
+          />
         </Link>
 
-        {/* User & Cart */}
-        <div className="flex items-center gap-5">
+        {/* Cart + Auth Controls */}
+        <div className="flex items-center gap-4 md:gap-5">
           {/* Cart Icon */}
-          <div className="relative cursor-pointer" onClick={handleProtectedClick}>
-            <IoCartOutline size={28} className="text-orange-500" style={{
-              animation: 'cartWiggle 2s ease-in-out infinite'
-            }} />
+          <button
+            className="relative cursor-pointer z-20"
+            onClick={handleProtectedClick}
+          >
+            <IoCartOutline
+              size={28}
+              className="text-orange-500"
+              style={{ animation: 'cartWiggle 2s ease-in-out infinite' }}
+            />
             {user && totalQuantity > 0 && (
-              <span
-                className="absolute -top-2 -right-2 bg-red-600 text-xs text-white font-semibold px-1.5 py-0.5 rounded-full"
-                style={{
-                  animation: 'badgeBounce 2s ease-in-out infinite'
-                }}
-              >
+              <span className="absolute -top-2 -right-2 bg-red-600 text-xs text-white font-semibold px-1.5 py-0.5 rounded-full">
                 {totalQuantity}
               </span>
             )}
-          </div>
-
-
+          </button>
 
           {/* Auth */}
           {user ? (
-            <div className="flex items-center  lg:flex-row md:flex-row gap-3 text-white">
+            <div className="flex items-center gap-2 md:gap-3 text-white">
               <img
                 src={user.image || '/images/default.png'}
                 alt="User"
-                className="w-10 h-10 rounded-full object-cover border"
+                className="w-9 h-9 rounded-full object-cover border"
               />
-              <div className="text-sm text-white typewriter hidden lg:block md:black">
-                Hello, <span className="font-semibold ">{user.name}</span>
+              <div className="text-sm hidden lg:block">
+                Hello, <span className="font-semibold">{user.name}</span>
               </div>
-              <IoIosLogOut
-                size={26}
-                className="cursor-pointer text-red-500 hover:text-red-600"
-                onClick={handleLogout}
-              />
+              <button onClick={handleLogout}>
+                <IoIosLogOut
+                  size={26}
+                  className="cursor-pointer text-red-500 hover:text-red-600"
+                />
+              </button>
             </div>
           ) : (
             <Link to="/signup">
