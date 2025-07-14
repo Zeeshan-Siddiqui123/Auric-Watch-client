@@ -43,7 +43,7 @@ const Men = () => {
               <div className="bg-black rounded-lg shadow-md p-3 h-full flex flex-col">
                 <div className="flex justify-center items-center mb-3">
                   <img
-                    src={`${API}/images/uploads/${product.file}`}
+                    src={product.file}
                     alt={product.title}
                     className="w-full md:w-1/1  p-2 h-28 lg:h-48 md:h-48 object-cover rounded"
                   />
