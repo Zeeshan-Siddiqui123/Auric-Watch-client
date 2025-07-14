@@ -71,7 +71,7 @@ const PaymentPage = () => {
                 <div key={`${item.id}-${index}`} className="flex items-center justify-between bg-[#2a2a2a] rounded-md p-3">
                   <div className="flex items-center gap-4">
                     <img
-                      src={`${API}/images/uploads/${item.file}`}
+                      src={item.file}
                       alt={item.title}
                       className="w-14 h-14 object-cover rounded"
                     />
