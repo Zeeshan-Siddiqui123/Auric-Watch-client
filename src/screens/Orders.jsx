@@ -37,7 +37,7 @@ const Orders = () => {
       <h1 className="text-3xl font-bold text-center mb-6">Your Orders</h1>
 
       {loading ? (
-        <div className="flex items-center justify-center min-h-screen bg-[#121212] text-white">
+        <div className="flex items-center  min-h-screen bg-[#121212] text-white">
         <Spin size="large" />
       </div>
       ) : orders.length === 0 ? (
