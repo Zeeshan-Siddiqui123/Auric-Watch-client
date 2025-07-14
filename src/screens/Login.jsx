@@ -1,16 +1,16 @@
-import axios from 'axios';
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from './UserContext';
 import { message } from 'antd';
 import { API } from '../../API';
-
+import axios from 'axios';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
   const [data, setData] = useState({ email: '', password: '', image: null });
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // 👁️‍ Toggle state
   const navigate = useNavigate();
-
   const { fetchUser } = useContext(UserContext);
 
   const handleChange = (e) => {
@@ -43,10 +43,8 @@ const Login = () => {
 
       setError('');
       setData({ email: '', password: '' });
-
       localStorage.setItem('userId', res.data.userId);
       await fetchUser();
-
       navigate('/');
     } catch (err) {
       const errorMsg = err.response?.data?.message || 'Login failed';
@@ -72,23 +70,30 @@ const Login = () => {
             onChange={handleChange}
             className="px-4 py-2 rounded-md bg-gray-900 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter Password"
-            value={data.password}
-            onChange={handleChange}
-            className="px-4 py-2 rounded-md bg-gray-900 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
 
-
+          {/* Password with toggle */}
+          <div className="relative">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              placeholder="Enter Password"
+              value={data.password}
+              onChange={handleChange}
+              className="w-full px-4 py-2 rounded-md bg-gray-900 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            <span
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
 
           <input
             type="submit"
             value="Login"
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-md cursor-pointer transition"
           />
-
 
           {error && <p className="text-red-500 text-center mt-2">{error}</p>}
 
