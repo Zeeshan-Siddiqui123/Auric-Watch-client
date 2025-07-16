@@ -14,13 +14,16 @@ import Account from './screens/Account';
 import PrivateRoute from './screens/PrivateRoute';
 import PaymentPage from './screens/Payment';
 import Verify from './screens/Verify';
+import ResetPass from './screens/ResetPass';
+import ForgotPass from './screens/ForgotPass';
+import NotFound from './screens/NotFound';
 
 
 const App = () => {
     return (
         <div className="min-h-screen flex flex-col">
             <BrowserRouter>
-                
+
                 <Header />
 
                 {/* Main Content Area */}
@@ -39,11 +42,14 @@ const App = () => {
                         <Route path='/login' element={<Login />} />
                         <Route path='/product-details/:id' element={<PrivateRoute><ProductDetails /></PrivateRoute>} />
                         <Route path='/payment' element={<PaymentPage />} />
+                        <Route path="/forgot-password" element={<ForgotPass />} />
+                        <Route path="/reset-password" element={<ResetPass />} />
                         <Route path="/cart" element={
                             <PrivateRoute>
                                 <Cart />
                             </PrivateRoute>
                         } />
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </main>
 

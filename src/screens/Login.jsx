@@ -9,7 +9,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 const Login = () => {
   const [data, setData] = useState({ email: '', password: '', image: null });
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { fetchUser } = useContext(UserContext);
 
@@ -94,6 +94,11 @@ const Login = () => {
             value="Login"
             className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-md cursor-pointer transition"
           />
+          <p className="text-right text-sm">
+            <Link to="/forgot-password" className="text-blue-400 hover:underline">
+              Forgot Password?
+            </Link>
+          </p>
 
           {error && <p className="text-red-500 text-center mt-2">{error}</p>}
 
