@@ -111,7 +111,7 @@ const Account = () => {
               placeholder="Password"
               value={data.password}
               onChange={handleChange}
-              className="px-4 py-2 rounded-md bg-gray-900 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="absolute px-4 py-2 rounded-md bg-gray-900 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <span
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
