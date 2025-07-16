@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { API } from '../../API';
 import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const ForgotPass = () => {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,6 +19,7 @@ const ForgotPass = () => {
     try {
       const res = await axios.post(`${API}/forgot-password`, { email });
       message.success(res.data.message);
+      setTimeout(() => navigate("/reset-password"), 2000);
       setSubmitted(true);
     } catch (err) {
       message.error(err.response?.data?.message || "Failed to send reset link");
