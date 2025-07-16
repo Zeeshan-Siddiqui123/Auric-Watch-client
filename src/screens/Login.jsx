@@ -9,7 +9,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 const Login = () => {
   const [data, setData] = useState({ email: '', password: '', image: null });
   const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false); // 👁️‍ Toggle state
+  const [showPassword, setShowPassword] = useState(false); 
   const navigate = useNavigate();
   const { fetchUser } = useContext(UserContext);
 

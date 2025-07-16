@@ -14,6 +14,7 @@ const Account = () => {
   const [preview, setPreview] = useState(null);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -29,44 +30,44 @@ const Account = () => {
   };
 
   const handleSignup = async (e) => {
-  e.preventDefault();
-  const { name, username, email, password } = data;
+    e.preventDefault();
+    const { name, username, email, password } = data;
 
-  if (!name || !username || !email || !password) {
-    setError('All fields are required');
-    setTimeout(() => setError(''), 2000);
-    return;
-  }
-
-  try {
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('username', username);
-    formData.append('email', email);
-    formData.append('password', password);
-    if (data.image) {
-      formData.append('file', data.image); 
+    if (!name || !username || !email || !password) {
+      setError('All fields are required');
+      setTimeout(() => setError(''), 2000);
+      return;
     }
 
-    const res = await axios.post(`${API}/register`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    try {
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('username', username);
+      formData.append('email', email);
+      formData.append('password', password);
+      if (data.image) {
+        formData.append('file', data.image);
+      }
 
-    setMessage(res.data.message);
-    setError('');
-    setData({ name: '', username: '', email: '', password: '', image: null });
-    setPreview(null);
+      const res = await axios.post(`${API}/register`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
 
-    setTimeout(() => {
+      setMessage(res.data.message);
+      setError('');
+      setData({ name: '', username: '', email: '', password: '', image: null });
+      setPreview(null);
+
+      setTimeout(() => {
+        setMessage('');
+        navigate('/verify');
+      }, 2000);
+    } catch (err) {
+      setError(err.response?.data?.message || 'Signup failed');
       setMessage('');
-      navigate('/verify');
-    }, 2000);
-  } catch (err) {
-    setError(err.response?.data?.message || 'Signup failed');
-    setMessage('');
-    setTimeout(() => setError(''), 2000);
-  }
-};
+      setTimeout(() => setError(''), 2000);
+    }
+  };
 
   return (
     <div className="min-h-screen mt-22 flex items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white px-4 animate-slide-down">
@@ -102,22 +103,28 @@ const Account = () => {
             onChange={handleChange}
             className="px-4 py-2 rounded-md bg-gray-900 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={data.password}
-            onChange={handleChange}
-            className="px-4 py-2 rounded-md bg-gray-900 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-
-
+          <div className="relative">
             <input
-              type="file"
-              name="image"
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              placeholder="Password"
+              value={data.password}
               onChange={handleChange}
-              className="text-sm text-gray-300 "
+              className="px-4 py-2 rounded-md bg-gray-900 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <span
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+          <input
+            type="file"
+            name="image"
+            onChange={handleChange}
+            className="text-sm text-gray-300 "
+          />
 
           <input
             type="submit"
